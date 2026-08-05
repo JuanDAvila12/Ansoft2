@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguros | Vía Dorada</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Vía Dorada</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="especialidades.html">Especialidades</a></li>
+            <li><a href="clinicas.html">Clínicas</a></li>
+            <li><a href="seguros.html" class="active">Seguros</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Seguros Médicos</h1>
+        <p>Seguros con los que trabajamos.</p>
+    </header>
+
+    <main class="container">
+        <div id="lista-seguros" class="cards-grid">Cargando...</div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/seguros')
+                .then(r => r.json())
+                .then(d => {
+                    if (!d.exito) return;
+                    const lista = document.getElementById('lista-seguros');
+                    if (d.datos.length === 0) {
+                        lista.innerHTML = '<p class="sin-datos">No hay seguros disponibles.</p>';
+                        return;
+                    }
+                    lista.innerHTML = d.datos.map(s => `
+                        <div class="card">
+                            <h3>${s.nombre}</h3>
+                            <p>${s.descripcion || 'Sin descripción.'}</p>
+                        </div>
+                    `).join('');
+                })
+                .catch(() => {
+                    document.getElementById('lista-seguros').innerHTML = '<p class="sin-datos">Error al cargar seguros.</p>';
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especialidades | Vía Dorada</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Vía Dorada</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="especialidades.html" class="active">Especialidades</a></li>
+            <li><a href="clinicas.html">Clínicas</a></li>
+            <li><a href="seguros.html">Seguros</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Nuestras Especialidades</h1>
+        <p>Conoce todas las áreas médicas disponibles.</p>
+    </header>
+
+    <main class="container">
+        <div id="lista-especialidades" class="cards-grid">Cargando...</div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/especialidades')
+                .then(r => r.json())
+                .then(d => {
+                    if (!d.exito) return;
+                    const lista = document.getElementById('lista-especialidades');
+                    if (d.datos.length === 0) {
+                        lista.innerHTML = '<p class="sin-datos">No hay especialidades disponibles.</p>';
+                        return;
+                    }
+                    lista.innerHTML = d.datos.map(e => `
+                        <div class="card">
+                            <h3>${e.nombre}</h3>
+                            <p>${e.descripcion || 'Sin descripción.'}</p>
+                        </div>
+                    `).join('');
+                })
+                .catch(() => {
+                    document.getElementById('lista-especialidades').innerHTML = '<p class="sin-datos">Error al cargar especialidades.</p>';
+                });
+        });
+    </script>
+</body>
+</html>

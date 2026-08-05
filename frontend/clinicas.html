@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínicas | Vía Dorada</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Vía Dorada</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="especialidades.html">Especialidades</a></li>
+            <li><a href="clinicas.html" class="active">Clínicas</a></li>
+            <li><a href="seguros.html">Seguros</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Nuestras Clínicas</h1>
+        <p>Encuentra la sede más cercana a ti.</p>
+    </header>
+
+    <main class="container">
+        <div id="lista-clinicas" class="cards-grid">Cargando...</div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/clinicas')
+                .then(r => r.json())
+                .then(d => {
+                    if (!d.exito) return;
+                    const lista = document.getElementById('lista-clinicas');
+                    if (d.datos.length === 0) {
+                        lista.innerHTML = '<p class="sin-datos">No hay clínicas disponibles.</p>';
+                        return;
+                    }
+                    lista.innerHTML = d.datos.map(c => `
+                        <div class="card">
+                            <h3>${c.nombre}</h3>
+                            <p><strong>Dirección:</strong> ${c.direccion || 'No especificada.'}</p>
+                            <p><strong>Teléfono:</strong> ${c.telefono || 'No especificado.'}</p>
+                        </div>
+                    `).join('');
+                })
+                .catch(() => {
+                    document.getElementById('lista-clinicas').innerHTML = '<p class="sin-datos">Error al cargar clínicas.</p>';
+                });
+        });
+    </script>
+</body>
+</html>

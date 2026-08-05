@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vía Dorada | Gestión Médica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Vía Dorada</div>
+        <ul class="nav-links">
+            <li><a href="especialidades.html">Especialidades</a></li>
+            <li><a href="clinicas.html">Clínicas</a></li>
+            <li><a href="seguros.html">Seguros</a></li>
+            <li><a href="login.html" class="btn-login" id="btn-login">Iniciar Sesión</a></li>
+            <li><a href="admin.html" class="btn-login" id="btn-admin" style="display:none;">Admin</a></li>
+            <li><a href="#" class="btn-login" id="btn-logout" style="display:none;" onclick="cerrarSesion()">Salir</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1 id="hero-titulo">Encuentra tu bienestar en un solo lugar.</h1>
+        <p id="hero-subtitulo">Gestión integral para pacientes y especialistas.</p>
+    </header>
+
+    <script src="app.js"></script>
+    <script>
+        // Cargar hero dinámico
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/hero-config')
+                .then(r => r.json())
+                .then(d => {
+                    if (d.exito) {
+                        document.getElementById('hero-titulo').textContent = d.titulo;
+                        document.getElementById('hero-subtitulo').textContent = d.subtitulo;
+                    }
+                })
+                .catch(() => {});
+
+            // Actualizar navbar según sesión
+            const u = JSON.parse(localStorage.getItem('usuario') || 'null');
+            if (u) {
+                document.getElementById('btn-login').style.display = 'none';
+                document.getElementById('btn-logout').style.display = 'inline-block';
+                if (u.rol === 'admin') {
+                    document.getElementById('btn-admin').style.display = 'inline-block';
+                }
+            }
+        });
+
+        function cerrarSesion() {
+            const token = localStorage.getItem('token');
+            fetch('/api/logout', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + token }
+            }).finally(() => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('usuario');
+                window.location.href = 'index.html';
+            });
+        }
+    </script>
+</body>
+</html>

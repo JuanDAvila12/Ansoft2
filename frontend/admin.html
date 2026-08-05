@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin | Vía Dorada</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Vía Dorada · Admin</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="admin.html" class="active">Panel Admin</a></li>
+            <li><a href="#" onclick="cerrarSesion()">Salir</a></li>
+        </ul>
+    </nav>
+
+    <main class="container admin-panel">
+        <h2>Panel de Administración</h2>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="mostrarTab('usuarios')">Usuarios</button>
+            <button class="tab-btn" onclick="mostrarTab('hero')">Hero Config</button>
+            <button class="tab-btn" onclick="mostrarTab('especialidades')">Especialidades</button>
+            <button class="tab-btn" onclick="mostrarTab('clinicas')">Clínicas</button>
+            <button class="tab-btn" onclick="mostrarTab('seguros')">Seguros</button>
+        </div>
+
+        <!-- TAB: USUARIOS -->
+        <div id="tab-usuarios" class="tab-content">
+            <h3>Gestión de Usuarios</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Activo</th>
+                        <th>Último Acceso</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-usuarios"></tbody>
+            </table>
+            <div id="mensaje-usuarios" class="mensaje"></div>
+        </div>
+
+        <!-- TAB: HERO CONFIG -->
+        <div id="tab-hero" class="tab-content hidden">
+            <h3>Configuración del Hero (Página Principal)</h3>
+            <form id="form-hero">
+                <div class="input-group">
+                    <label>Título principal</label>
+                    <input type="text" id="hero-titulo-input" placeholder="Ej: Encuentra tu bienestar en un solo lugar.">
+                </div>
+                <div class="input-group">
+                    <label>Subtítulo</label>
+                    <input type="text" id="hero-subtitulo-input" placeholder="Ej: Gestión integral para pacientes y especialistas.">
+                </div>
+                <button type="submit" class="btn-primary">Guardar Configuración</button>
+            </form>
+            <div id="mensaje-hero" class="mensaje"></div>
+        </div>
+
+        <!-- TAB: ESPECIALIDADES -->
+        <div id="tab-especialidades" class="tab-content hidden">
+            <h3>Gestión de Especialidades</h3>
+            <form id="form-especialidad" class="inline-form">
+                <input type="hidden" id="esp-id">
+                <input type="text" id="esp-nombre" placeholder="Nombre de especialidad" required>
+                <input type="text" id="esp-descripcion" placeholder="Descripción (opcional)">
+                <button type="submit" class="btn-primary">Guardar</button>
+                <button type="button" class="btn-cancelar" onclick="cancelarEdicionEsp()">Cancelar</button>
+            </form>
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Nombre</th><th>Descripción</th><th>Activo</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="tbody-especialidades"></tbody>
+            </table>
+            <div id="mensaje-esp" class="mensaje"></div>
+        </div>
+
+        <!-- TAB: CLÍNICAS -->
+        <div id="tab-clinicas" class="tab-content hidden">
+            <h3>Gestión de Clínicas</h3>
+            <form id="form-clinica" class="inline-form">
+                <input type="hidden" id="cli-id">
+                <input type="text" id="cli-nombre" placeholder="Nombre de clínica" required>
+                <input type="text" id="cli-direccion" placeholder="Dirección">
+                <input type="text" id="cli-telefono" placeholder="Teléfono">
+                <button type="submit" class="btn-primary">Guardar</button>
+                <button type="button" class="btn-cancelar" onclick="cancelarEdicionCli()">Cancelar</button>
+            </form>
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Nombre</th><th>Dirección</th><th>Teléfono</th><th>Activo</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="tbody-clinicas"></tbody>
+            </table>
+            <div id="mensaje-cli" class="mensaje"></div>
+        </div>
+
+        <!-- TAB: SEGUROS -->
+        <div id="tab-seguros" class="tab-content hidden">
+            <h3>Gestión de Seguros</h3>
+            <form id="form-seguro" class="inline-form">
+                <input type="hidden" id="seg-id">
+                <input type="text" id="seg-nombre" placeholder="Nombre de seguro" required>
+                <input type="text" id="seg-descripcion" placeholder="Descripción (opcional)">
+                <button type="submit" class="btn-primary">Guardar</button>
+                <button type="button" class="btn-cancelar" onclick="cancelarEdicionSeg()">Cancelar</button>
+            </form>
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Nombre</th><th>Descripción</th><th>Activo</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="tbody-seguros"></tbody>
+            </table>
+            <div id="mensaje-seg" class="mensaje"></div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
