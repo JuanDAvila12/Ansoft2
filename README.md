@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🏥 Vía Dorada — Sistema de Gestión Médica
 
 Sistema web integral para la gestión de clínicas médicas, pacientes, doctores, especialidades, seguros y citas. Incluye panel de administración con control de acceso basado en roles (admin, doctor, paciente, recepcionista).
@@ -238,3 +239,6 @@ Proyecto privado — **Vía Dorada**. Todos los derechos reservados.
 Desarrollado para **Vía Dorada** — Gestión Médica Integral.
 
 Documentación y estructura del proyecto generada con asistencia de [Cline](https://github.com/cline/cline), un agente de ingeniería de software autónomo.
+=======
+# Ansoft2
+>>>>>>> bd8104f2db1ed618864a6efda9db25a0a4a63d1e
