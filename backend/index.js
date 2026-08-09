@@ -11,8 +11,8 @@ app.use(cors());
 // ============================================
 // SERVIR ARCHIVOS ESTÁTICOS DEL FRONTEND
 // ============================================
-const frontendPath = path.join(__dirname, '..', 'frontend');
-app.use(express.static(frontendPath));
+//const frontendPath = path.join(__dirname, '..', 'frontend');
+//app.use(express.static(frontendPath));
 
 // ============================================
 // MIDDLEWARE: Verificar token de sesión
@@ -687,7 +687,9 @@ app.delete('/api/admin/seguros/:id', autenticar, soloAdmin, async (req, res) => 
 // ============================================
 // INICIAR SERVIDOR
 // ============================================
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor Vía Dorada corriendo en http://localhost:${PORT}`);
-});
+//const PORT = process.env.PORT || 3000;
+//app.listen(PORT, () => {
+//  console.log(`Servidor Vía Dorada corriendo en http://localhost:${PORT}`);
+//});
+// Exportar para Vercel (serverless)
+module.exports = app;
