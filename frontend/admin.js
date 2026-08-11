@@ -1,5 +1,5 @@
 // ============================================
-// PANEL DE ADMINISTRACIÓN - VÍA DORADA
+// PANEL DE ADMINISTRACIÓN - Clinica AnSoft
 // ============================================
 
 const API = '/api/admin';
