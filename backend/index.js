@@ -72,7 +72,7 @@ function soloAdmin(req, res, next) {
 app.get('/api', (req, res) => {
   res.json({
     exito: true,
-    mensaje: 'API Vía Dorada funcionando correctamente.',
+    mensaje: 'API Clínica AnSoft funcionando correctamente.',
     version: '1.0.0',
     endpoints: {
       login: 'POST /api/login',
